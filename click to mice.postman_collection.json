@@ -1,0 +1,275 @@
+{
+  "info": {
+    "_postman_id": "ae978fad-e978-48c8-865c-ba736056c2a3",
+    "name": "click to mice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST /api/service",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "365ca459-aa97-4dbb-b076-cd690649b4f9",
+            "exec": [
+              "pm.test(\"Status code 201/200\", () => {\r",
+              "    pm.response.to.have.status([200, 201]);\r",
+              "});\r",
+              "pm.test(\"Service created\", () => {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('id');\r",
+              "    pm.collectionVariables.set(\"serviceId\", jsonData.id);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "13cf5234-1496-4f1f-8550-d54eddd9be9a",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "d6d693e8-e338-4a0e-896c-76d61e4e1545",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenClick}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"service\", \r\n    \"quantity\": 10, \r\n    \"price\": 100, \r\n    \"tax\": \"22\", \r\n    \"gross\": 122\r\n    }\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://app.evgenybelkin.ru/api/service/create",
+          "protocol": "https",
+          "host": [
+            "app",
+            "evgenybelkin",
+            "ru"
+          ],
+          "path": [
+            "api",
+            "service",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/service/ID)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "95bcc6d7-2c0e-4851-bc1a-d697184cc0ed",
+            "exec": [
+              "pm.test(\"Status code 200\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Response has service data\", () => {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('name');\r",
+              "    pm.expect(jsonData).to.have.property('price');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "6b1effbe-76ac-41b3-8550-fb381aa437d1",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "8f4777fc-4242-464b-8480-da7df65734af",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenClick}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://app.evgenybelkin.ru/api/service/118",
+          "protocol": "https",
+          "host": [
+            "app",
+            "evgenybelkin",
+            "ru"
+          ],
+          "path": [
+            "api",
+            "service",
+            "118"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /api/service/ID",
+      "id": "f6041754-9318-4a18-847f-9ec18533baec",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenClick}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"новый продукт\", \r\n    \"quantity\": 10, \r\n    \"price\": 100, \r\n    \"tax\": \"22\", \r\n    \"gross\": 122\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://app.evgenybelkin.ru/api/service/update?id=100",
+          "protocol": "https",
+          "host": [
+            "app",
+            "evgenybelkin",
+            "ru"
+          ],
+          "path": [
+            "api",
+            "service",
+            "update"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /api/service/ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "67f10e92-bc66-4aad-9c56-2b3f775b92f5",
+            "exec": [
+              "pm.test(\"Status code 204/200\", () => {\r",
+              "    pm.response.to.have.status([200, 204]);\r",
+              "});\r",
+              "pm.test(\"Body is empty after delete\", () => {\r",
+              "    pm.expect(pm.response.text()).to.be.empty;\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "754bae55-4575-4512-930e-3b1eeb13d4e4",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "53ee64bb-01ba-4624-ba00-e1941dcef178",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "21test104key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://app.evgenybelkin.ru/api/service/delete?id=122",
+          "protocol": "https",
+          "host": [
+            "app",
+            "evgenybelkin",
+            "ru"
+          ],
+          "path": [
+            "api",
+            "service",
+            "delete"
+          ],
+          "query": [
+            {
+              "key": "Authorization",
+              "value": "Bearer {{tokenClick}}",
+              "disabled": true
+            },
+            {
+              "key": "id",
+              "value": "122"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "9a2eb4ef-5571-4bc2-a7ad-0861bf7c75c3",
+      "key": "tokenClick",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "id": "06d75e2c-7033-435e-95ee-f514c51b7cd4",
+      "key": "serviceId",
+      "value": ""
+    }
+  ]
+}
